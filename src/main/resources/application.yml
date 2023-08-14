@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://192.168.138.139:5432/app-employee-security-db
+    username: sqluser
+    password: D3v310p34202x-GD
+  jpa:
+    show-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+    generate-ddl: true
+  sql:
+    init:
+      mode: never
+server:
+  port: 9010
+grooverdev:
+  app:
+    jwtSecret: '7En81T01chCDGP7XU0oQjfWrb7nMith1bV0RJCn+7JkgyKa1Jgz7zeQFV9bm8f+EgWGFU0G82UX0jRiTHxw8yScH9vruKMOT6m2AtEr9WRrCK5OMIJfegBBwAw4ezQOLivEmGd3JELMpIVcRAq+JBQtPH3wAUfE+PVfu6iOvKnc7Jbbss4XdarzcUyMRiZPD'
+    jwtExpirationMs: 86400000

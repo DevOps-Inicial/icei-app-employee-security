@@ -29,7 +29,7 @@ public class GEmployeeServiceImpl implements IGEmployeeService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<GEmployee> findByEmployeeID(String id) {
+    public Optional<GEmployee> findByEmployeeID(long id) {
         return employeeRepository.findByEmployeeId(id);
     }
 
@@ -41,7 +41,7 @@ public class GEmployeeServiceImpl implements IGEmployeeService {
 
     @Override
     @Transactional
-    public GEmployee update(String id, GEmployee updGEmployee) {
+    public GEmployee update(long id, GEmployee updGEmployee) {
 
         var updatedEmployee = employeeRepository.findByEmployeeId(id);
         if (updatedEmployee.isPresent()) {
@@ -57,7 +57,7 @@ public class GEmployeeServiceImpl implements IGEmployeeService {
 
     @Override
     @Transactional
-    public GEmployee delete(String id) {
+    public GEmployee delete(long id) {
         var deletedEmployee = employeeRepository.findByEmployeeId(id);
         deletedEmployee.ifPresent(delGEmployee ->deletedEmployee.get().setEnabled(false));
         return employeeRepository.save(deletedEmployee.get());

@@ -38,6 +38,36 @@ public class GEmployeeController {
         }
     }
 
+    @GetMapping("/enabled-employees/{enabled}")
+    public ResponseEntity<List<GEmployeeDto>> findAllEnabledEmployees(@PathVariable boolean enabled) {
+
+        try {
+            var enabledEmployees = employeeService.findAllEnabled(true).stream()
+                    .map(enabEmployees->modelMapper.map(enabEmployees, GEmployeeDto.class)).collect(Collectors.toList());
+            log.debug("Listado de registros habilitados");
+            return new ResponseEntity<>(enabledEmployees, HttpStatus.OK);
+        }
+        catch (DataAccessException daex) {
+            log.error("Error al obtener el listado de habilitados " + daex.getMostSpecificCause());
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/single-employees/{id}")
+    public ResponseEntity<GEmployeeDto> findEmployeeByID(@Valid @PathVariable long id) {
+
+        try {
+            var singleEmployee = employeeService.findByEmployeeID(id);
+            var singleEmployeeResponse = modelMapper.map(singleEmployee.get(), GEmployeeDto.class);
+            log.debug("Un registro");
+            return new ResponseEntity<>(singleEmployeeResponse, HttpStatus.OK);
+        }
+        catch (DataAccessException daex) {
+            log.error("Error al obtener un registro " + daex.getMostSpecificCause());
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping("/keep-employees")
     public ResponseEntity<GEmployeeDto> saveEmployee(@Valid @RequestBody GEmployeeDto nGEmployeeDto) {
         try {
@@ -49,6 +79,37 @@ public class GEmployeeController {
         }
         catch (DataAccessException daex) {
             log.error("Error al guardar el registro " + daex.getMostSpecificCause());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/catchup-employees/{id}")
+    public ResponseEntity<GEmployeeDto> updateEmployee(@Valid @PathVariable long id, @Valid @RequestBody GEmployeeDto uGEmployeeDto) {
+
+        try {
+            var employeeRequest = modelMapper.map(uGEmployeeDto, GEmployee.class);
+            var updatedEmployee = employeeService.update(id, employeeRequest);
+            var employeeResponse = modelMapper.map(updatedEmployee, GEmployeeDto.class);
+            log.debug("Registro actualizado exitosamente");
+            return new ResponseEntity<>(employeeResponse, HttpStatus.ACCEPTED);
+        }
+        catch (DataAccessException daex) {
+            log.error("Error al actualizar el registro " + daex.getMostSpecificCause());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PatchMapping("/remove-employees/{id}")
+    public ResponseEntity<GEmployeeDto> deleteEmployeeByID(@Valid @PathVariable long id) {
+
+        try {
+            var deletedEmployee = employeeService.delete(id);
+            var employeeResponse = modelMapper.map(deletedEmployee, GEmployeeDto.class);
+            log.debug("Registro eliminado");
+            return new ResponseEntity<>(employeeResponse, HttpStatus.NO_CONTENT);
+        }
+        catch (DataAccessException daex) {
+            log.error("Error al eliminar el registro " + daex.getMostSpecificCause());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

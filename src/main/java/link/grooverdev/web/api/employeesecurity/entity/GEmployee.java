@@ -26,9 +26,9 @@ import java.time.LocalDateTime;
 public class GEmployee {
 
     @Id
-    @UuidGenerator
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "employee_id", nullable = false)
-    private String employeeId;
+    private Long employeeId;
 
     @Column(name = "first_name")
     @ColumnTransformer(read = "pgp_sym_decrypt(first_name::bytea,current_setting('encrypt.key'))", write = "pgp_sym_encrypt(?,current_setting('encrypt.key'))")

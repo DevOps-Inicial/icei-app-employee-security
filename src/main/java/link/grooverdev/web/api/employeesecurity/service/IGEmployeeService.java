@@ -9,8 +9,8 @@ import java.util.UUID;
 public interface IGEmployeeService {
     List<GEmployee> findAll();
     List<GEmployee> findAllEnabled(boolean enabled);
-    Optional<GEmployee> findByEmployeeID(long id);
+    Optional<GEmployee> findByEmployeeID(String id);
     GEmployee save(GEmployee newGEmployee);
-    GEmployee update(long id, GEmployee updGEmployee);
-    GEmployee delete(long id);
+    GEmployee update(String id, GEmployee updGEmployee);
+    GEmployee delete(String id);
 }

@@ -54,7 +54,7 @@ public class GEmployeeController {
     }
 
     @GetMapping("/single-employees/{id}")
-    public ResponseEntity<GEmployeeDto> findEmployeeByID(@Valid @PathVariable long id) {
+    public ResponseEntity<GEmployeeDto> findEmployeeByID(@Valid @PathVariable String id) {
 
         try {
             var singleEmployee = employeeService.findByEmployeeID(id);
@@ -84,7 +84,7 @@ public class GEmployeeController {
     }
 
     @PutMapping("/catchup-employees/{id}")
-    public ResponseEntity<GEmployeeDto> updateEmployee(@Valid @PathVariable long id, @Valid @RequestBody GEmployeeDto uGEmployeeDto) {
+    public ResponseEntity<GEmployeeDto> updateEmployee(@Valid @PathVariable String id, @Valid @RequestBody GEmployeeDto uGEmployeeDto) {
 
         try {
             var employeeRequest = modelMapper.map(uGEmployeeDto, GEmployee.class);
@@ -100,7 +100,7 @@ public class GEmployeeController {
     }
 
     @PatchMapping("/remove-employees/{id}")
-    public ResponseEntity<GEmployeeDto> deleteEmployeeByID(@Valid @PathVariable long id) {
+    public ResponseEntity<GEmployeeDto> deleteEmployeeByID(@Valid @PathVariable String id) {
 
         try {
             var deletedEmployee = employeeService.delete(id);

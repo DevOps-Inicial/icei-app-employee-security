@@ -1,6 +1,6 @@
 /* Table Employees */
 CREATE TABLE icei.employees(
-    employee_id BIGSERIAL PRIMARY KEY UNIQUE NOT NULL,
+    employee_id uuid PRIMARY KEY default uuid_generate_v4() UNIQUE NOT NULL,
     first_name text NOT NULL,
     last_name text NOT NULL,
     email text NOT NULL,

@@ -16,21 +16,16 @@ spring:
   main:
     allow-bean-definition-overriding=true:
 springdoc:
-  packages-to-scan: 'tech.icei.web.api.employeesecurity.controller'
+  packages-to-scan: 'link.grooverdev.web.api.employeesecurity.controller'
 logging:
   pattern:
     console: "%d{dd-MM-yyyy HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
     file: "%d{dd-MM-yyyy HH:mm:ss.SSS} %p %c{1.} [%t] %m%n"
   level:
     org.springframework.web: ERROR
-    tech.icei.web.api.appuno: DEBUG
+    link.grooverdev.web.api: DEBUG
     org.hibernate: ERROR
   file:
     name: icei-app-employees.log
 server:
   port: 9030
-grooverdev:
-  app:
-    jwtSecret: '7En81T01chCDGP7XU0oQjfWrb7nMith1bV0RJCn+7JkgyKa1Jgz7zeQFV9bm8f+EgWGFU0G82UX0jRiTHxw8yScH9vruKMOT6m2AtEr9WRrCK5OMIJfegBBwAw4ezQOLivEmGd3JELMpIVcRAq+JBQtPH3wAUfE+PVfu6iOvKnc7Jbbss4XdarzcUyMRiZPD'
-    jwtExpirationMs: 86400000
-

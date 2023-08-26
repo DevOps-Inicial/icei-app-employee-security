@@ -2,7 +2,6 @@ package link.grooverdev.web.api.employeesecurity.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,38 +17,26 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "employees", schema = "icei")
-public class GEmployee {
+@Table(name = "users", schema = "icei")
+public class GUser {
 
     @Id
     @UuidGenerator
-    @Column(name = "employee_id", nullable = false)
-    private String employeeId;
+    @Column(name = "user_id", nullable = false)
+    private String userId;
 
-    @Column(name = "first_name")
-    @ColumnTransformer(read = "pgp_sym_decrypt(first_name::bytea,current_setting('encrypt.key'))", write = "pgp_sym_encrypt(?,current_setting('encrypt.key'))")
-    private String firstName;
-
-    @Column(name = "last_name")
-    @ColumnTransformer(read = "pgp_sym_decrypt(last_name::bytea,current_setting('encrypt.key'))", write = "pgp_sym_encrypt(?,current_setting('encrypt.key'))")
-    private String lastName;
+    @ColumnTransformer(read = "pgp_sym_decrypt(username::bytea,current_setting('encrypt.key'))", write = "pgp_sym_encrypt(?,current_setting('encrypt.key'))")
+    private String username;
 
     @Email
     @ColumnTransformer(read = "pgp_sym_decrypt(email::bytea,current_setting('encrypt.key'))", write = "pgp_sym_encrypt(?,current_setting('encrypt.key'))")
     private String email;
 
-    @ColumnTransformer(read = "pgp_sym_decrypt(address::bytea,current_setting('encrypt.key'))", write = "pgp_sym_encrypt(?,current_setting('encrypt.key'))")
-    private String address;
-
-    @Column(name = "cell_phone")
-    @ColumnTransformer(read = "pgp_sym_decrypt(cell_phone::bytea,current_setting('encrypt.key'))", write = "pgp_sym_encrypt(?,current_setting('encrypt.key'))")
-    private String cellPhone;
-
-    private boolean enabled;
+    @ColumnTransformer(read = "pgp_sym_decrypt(password::bytea,current_setting('encrypt.key'))", write = "pgp_sym_encrypt(?,current_setting('encrypt.key'))")
+    private String password;
 
     @CreatedBy
     @Column(name = "created_by_user", nullable = false, updatable = false, length = 20)
@@ -70,4 +57,11 @@ public class GEmployee {
     @Version
     @Column(name = "number_of_modifications", nullable = false)
     private long numberOfModification;
+
+    //Custom Constructor
+    public GUser(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 }

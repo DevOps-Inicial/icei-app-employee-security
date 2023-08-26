@@ -13,3 +13,15 @@ CREATE TABLE icei.employees(
     last_modified_date TIMESTAMP NOT NULL,
     number_of_modifications BIGINT NOT NULL
 );
+
+CREATE TABLE icei.users(
+    user_id uuid PRIMARY KEY default uuid_generate_v4() UNIQUE NOT NULL,
+    username text NOT NULL,
+    email text NOT NULL,
+    password text NOT NULL,
+    created_by_user varchar(20) NOT NULL,
+    created_date TIMESTAMP NOT NULL,
+    last_modified_by_user varchar(20) NOT NULL,
+    last_modified_date TIMESTAMP NOT NULL,
+    number_of_modifications BIGINT NOT NULL
+);

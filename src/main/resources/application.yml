@@ -29,3 +29,6 @@ logging:
     name: icei-app-employees.log
 server:
   port: 9030
+grooverdev:
+  jwt:
+    secret: 'miZ8VP1MH6p7jBZVe/e5pEfS3GlX8jC8zkuia9mFJNl2SUZ8vblATv2WdtXGzEn9miZ8VP1MH6p7jBZVe/e5pEfS3GlX8jC8zkuia9mFJNl2SUZ8vblATv2WdtXGzEn9miZ8VP1MH6p7jBZVe/e5pEfS3GlX8jC8zkuia9mFJNl2SUZ8vblATv2WdtXGzEn9'

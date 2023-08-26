@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@CrossOrigin(origins = "http://localhost:46000")
 @RestController
 @RequestMapping("api/v1")
 @RequiredArgsConstructor
@@ -24,7 +24,7 @@ public class GEmployeeController {
     private final IGEmployeeService employeeService;
     private final ModelMapper modelMapper = new ModelMapper();
 
-    @GetMapping("/all-employees")
+    @GetMapping("/employees")
     public ResponseEntity<List<GEmployeeDto>> findAllEmployees() {
         try {
             var employees = employeeService.findAll().stream()
@@ -53,7 +53,7 @@ public class GEmployeeController {
         }
     }
 
-    @GetMapping("/single-employees/{id}")
+    @GetMapping("/employees/{id}")
     public ResponseEntity<GEmployeeDto> findEmployeeByID(@Valid @PathVariable String id) {
 
         try {
@@ -68,7 +68,7 @@ public class GEmployeeController {
         }
     }
 
-    @PostMapping("/keep-employees")
+    @PostMapping("/employees")
     public ResponseEntity<GEmployeeDto> saveEmployee(@Valid @RequestBody GEmployeeDto nGEmployeeDto) {
         try {
             var employeeRequest = modelMapper.map(nGEmployeeDto, GEmployee.class);
@@ -83,7 +83,7 @@ public class GEmployeeController {
         }
     }
 
-    @PutMapping("/catchup-employees/{id}")
+    @PutMapping("/employees/{id}")
     public ResponseEntity<GEmployeeDto> updateEmployee(@Valid @PathVariable String id, @Valid @RequestBody GEmployeeDto uGEmployeeDto) {
 
         try {
@@ -99,7 +99,7 @@ public class GEmployeeController {
         }
     }
 
-    @PatchMapping("/remove-employees/{id}")
+    @PatchMapping("/employees/{id}")
     public ResponseEntity<GEmployeeDto> deleteEmployeeByID(@Valid @PathVariable String id) {
 
         try {
